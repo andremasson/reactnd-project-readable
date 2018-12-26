@@ -1,20 +1,18 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Post from './Post'
+import Grid from '@material-ui/core/Grid'
 
 class Posts extends Component {
   render() {
     return (
-      <div>
-        <h3>Posts</h3>
-        <ul>
+      <Grid container justify='center'>
+        <Grid item xs={10} sm={8}>
           {this.props.postsIds.map((id) => (
-            <li key={id}>
-              <Post id={id} />
-            </li>
+            <Post id={id} key={id}/>
           ))}
-        </ul>
-      </div>
+        </Grid>
+      </Grid>
     )
   }
 }
