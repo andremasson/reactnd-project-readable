@@ -1,28 +1,36 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { handleInitialData } from '../actions/shared'
-import Posts from '../components/Posts'
 import CssBaseline from '@material-ui/core/CssBaseline'
-import AddButton from '../components/AddButton'
 import 'typeface-roboto';
 import TopBar from './TopBar'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import Dashboard from './Dashboard'
 
 class App extends Component {
   componentDidMount() {
     this.props.dispatch(handleInitialData())
   }
-  
   render() {
     return (
-      <div className="App">
-        <CssBaseline />
-        
-        <TopBar />
-        
-        <Posts />
-        
-        <AddButton />
-      </div>
+      <Router>
+        <Fragment>
+          <CssBaseline />
+          <div className="App">
+            <TopBar />
+            <Switch>
+              <Route
+                path='/' exact
+                render={(props) => <Dashboard {...props} filterByCategory={false} />}
+              />
+              <Route
+                path='/:category'
+                render={(props) => <Dashboard {...props} filterByCategory={true} />}
+              />
+            </Switch>
+          </div>
+        </Fragment>
+      </Router>
     )
   }
 }

@@ -1,10 +1,13 @@
-import { GET_ALL_POSTS, SEARCH_POSTS } from '../actions/posts'
+import { 
+  GET_ALL_POSTS, 
+  SEARCH_POSTS,
+  GET_BY_CATEGORY
+} from '../actions/posts'
 
 export default function posts (state = [], action) {
   switch(action.type) {
     case GET_ALL_POSTS:
       return {
-        ...state,
         ...action.posts
       }
     case SEARCH_POSTS:
@@ -14,6 +17,10 @@ export default function posts (state = [], action) {
       ))
       return {
         ...posts,
+      }
+    case GET_BY_CATEGORY:
+      return {
+        ...action.posts
       }
     default:
       return state

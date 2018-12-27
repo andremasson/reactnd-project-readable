@@ -6,6 +6,8 @@ import { AppBar, Toolbar, IconButton, Typography, Drawer, Divider } from '@mater
 import MenuIcon from '@material-ui/icons/Menu'
 import classNames from 'classnames'
 import Search from './Search'
+import { connect } from 'react-redux'
+import { openDrawer, closeDrawer } from '../actions/drawer'
 
 const drawerWidth = 240
 
@@ -51,31 +53,27 @@ const topBarStyles = theme => ({
 })
 
 class TopBar extends Component {
-  state = {
-    open: false
-  }
   handleDrawerOpen = () => {
-    this.setState({ open: true })
+    this.props.openDrawer()
   }
   handleDrawerClose = () => {
-    this.setState({ open: false })
+    this.props.closeDrawer()
   }
   render() {
-    const { classes } = this.props
-    const { open } = this.state
+    const { classes, drawerOpen } = this.props
     return (
       <div>
         <AppBar
           position='fixed'
           className={classNames(classes.appBar, {
-            [classes.appBarShift]: open,
+            [classes.appBarShift]: drawerOpen,
           })}
         >
-          <Toolbar disableGutters={!open}>
+          <Toolbar disableGutters={!drawerOpen}>
             <IconButton
               color='inherit'
               onClick={this.handleDrawerOpen}
-              className={classNames(classes.menuButton, open && classes.hide)}
+              className={classNames(classes.menuButton, drawerOpen && classes.hide)}
             >
               <MenuIcon />
             </IconButton>
@@ -89,7 +87,7 @@ class TopBar extends Component {
           className={classes.drawer}
           variant='temporary'
           anchor='left'
-          open={open}
+          open={drawerOpen}
           classes={{paper: classes.drawerPaper}}
         >
           <div className={classes.drawerHeader}>
@@ -107,4 +105,18 @@ class TopBar extends Component {
   }
 }
 
-export default withStyles(topBarStyles)(TopBar)
+function mapStateToProps ({drawer}) {
+  const { drawerOpen } = drawer
+  return {
+    drawerOpen
+  }
+}
+
+function mapDispatchToProps (dispatch) {
+  return {
+    openDrawer: () => dispatch(openDrawer()),
+    closeDrawer: () => dispatch(closeDrawer())
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(topBarStyles)(TopBar))
