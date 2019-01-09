@@ -14,10 +14,7 @@ class CategoriesList extends Component {
     return (
       <div>
         <List>
-          <ListItem button>
-            <ListItemText primary='ALL' onClick={() => this.selectCategory('')} />
-          </ListItem>
-          {categories && categories.map(cat => 
+          {[{name: 'ALL', path: ''}].concat(categories).map(cat => 
             <ListItem button key={cat.path}>
               <ListItemText primary={cat.name} onClick={() => this.selectCategory(`${cat.path}`)} />
             </ListItem>

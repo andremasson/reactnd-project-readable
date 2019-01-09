@@ -1,4 +1,5 @@
-body {
+html body {
+  font-family: "Roboto";
   background-color: #eeeeee;
 }
 
@@ -34,4 +35,68 @@ li {
 
 .full-size {
   width: 100%;
+}
+
+.post-element {
+  text-decoration: none;
+  color: rgba(0, 0, 0, 0.7);
+}
+
+.category-chip {
+  margin-left: 2em;
+}
+
+.post-body {
+  padding: 1em 1em 1em 1em;
+}
+
+.post-title {
+  padding-top: .5em;
+}
+
+.comment-display {
+  padding: 1em 1em 1em 1em;
+  margin: 1em 0 0 0;
+}
+
+.comment-list {
+  width: 100%;
+  margin: 0;
+}
+
+.comments {
+  position: relative;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0 0 0 0;
+  
+}
+
+.post-page {
+  background-color: #eeeeee;
+}
+
+.app-bar {
+  position: fixed;
+}
+
+.post-content {
+  padding-top: 60px;
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.container {
+  flex: 1;
+}
+
+.top-item {
+  position: relative;
+  z-index: 1;
+}
+
+.bottom-item {
+  position: relative;
+  z-index: 0;
 }
