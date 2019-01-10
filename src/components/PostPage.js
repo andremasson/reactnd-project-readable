@@ -22,6 +22,7 @@ import AuthorDisplay from './AuthorDisplay'
 import VoteScore from './VoteScore'
 import { withStyles } from '@material-ui/core/styles'
 import ConfirmationDialog from './ConfirmationDialog'
+import NewComment from './NewComment'
 
 const styles = {
   appBar: {
@@ -64,7 +65,6 @@ class PostPage extends Component {
   }
   render() {
     const { post } = this.props
-    console.log('POST AQUI: ', post)
     if (this.state.redirect === true) {
       return <Redirect to={{
         pathname: this.state.redirectURL,
@@ -112,6 +112,9 @@ class PostPage extends Component {
                 <VoteScore voteScore={post.voteScore} onUpVote={this.onUpVote} onDownVote={this.onDownVote} />
               </GridListTile>
             </GridList>
+          </Grid>
+          <Grid item xs={12} sm={10} md={6}>
+            <NewComment postId={post.id} />
           </Grid>
           <Grid item xs={12} sm={10} md={8}>
             <CommentList />

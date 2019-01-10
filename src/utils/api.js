@@ -1,4 +1,6 @@
-let auth_key = localStorage.auth_key || Math.random().toString(36).substr(-8)
+import uuidv1 from 'uuid/v1'
+
+let auth_key = localStorage.auth_key || uuidv1()
 localStorage.auth_key = auth_key
 const api = 'http://localhost:3001'
 
@@ -76,7 +78,7 @@ export const deleteComment = (dispatch, id) => {
     headers: headers
   })
   .then(response => response.json())
-  .then(post => post)
+  .then(comment => comment)
 }
 
 export const saveUpVoteComment = (dispatch, id) => {
@@ -87,7 +89,7 @@ export const saveUpVoteComment = (dispatch, id) => {
     body: JSON.stringify({ option: 'upVote' })
   })
   .then(response => response.json())
-  .then(post => post)
+  .then(comment => comment)
 }
 
 export const saveDownVoteComment = (dispatch, id) => {
@@ -98,9 +100,26 @@ export const saveDownVoteComment = (dispatch, id) => {
       body: JSON.stringify({ option: 'downVote' })
     })
     .then(response => response.json())
-    .then(post => post)
+    .then(comment => comment)
 }
 
+export const saveNewComment = (dispatch, comment, author, parentId) => {
+  return fetch(`${api}/comments`,
+    {
+      method: 'POST',
+      headers: headers,
+      body: JSON.stringify({
+        id: uuidv1(),
+        timestamp: Date.now(),
+        body: comment,
+        author: author,
+        parentId: parentId
+      })      
+    }
+  )
+  .then(response => response.json())
+  .then(comment => comment)
+}
 
 /*
 let auth_key = localStorage.auth_key || Math.random().toString(36).substr(-8)

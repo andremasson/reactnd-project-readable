@@ -26,8 +26,12 @@ class CommentList extends Component {
 }
 
 const mapStateToProps = ({comments}) => {
+  const commentsArray = Object.values(comments)
   return {
-    comments: Object.values(comments).filter((comment) => (comment.deleted === false))
+    comments: !commentsArray
+              ?[]
+              : commentsArray.filter((comment) => (comment.deleted === false))
+                .sort((a, b) => b.voteScore - a.voteScore)
   }
 }
 
