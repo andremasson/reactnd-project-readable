@@ -2,12 +2,13 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { formatDate } from '../utils/helpers'
 import Paper from '@material-ui/core/Paper'
-import { Grid, Chip, Button } from '@material-ui/core'
+import { Grid, Chip, Button, Badge } from '@material-ui/core'
 import 'typeface-roboto'
 import { Link, withRouter } from 'react-router-dom'
 import VoteScore from './VoteScore'
 import { handleUpVotePost, handleDownVotePost, handleDeletePost } from '../actions/posts'
 import DeleteIcon from '@material-ui/icons/Delete'
+import CommentIcon from '@material-ui/icons/Comment'
 import ConfirmationDialog from './ConfirmationDialog'
 
 class PostElement extends Component {
@@ -65,6 +66,13 @@ class PostElement extends Component {
                     <DeleteIcon />
                   </Button>
                 </Grid>
+                {post.commentCount > 0 &&
+                <Grid>
+                  <Badge badgeContent={post.commentCount} color="secondary">
+                    <CommentIcon />
+                  </Badge>
+                </Grid>
+                }
               </Grid>
             </Paper>
           </Link>
