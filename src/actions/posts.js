@@ -4,7 +4,8 @@ import {
   fetchPost,
   deletePost,
   saveUpVote,
-  saveDownVote
+  saveDownVote,
+  saveNewPost
 } from "../utils/api"
 
 export const GET_ALL_POSTS = 'GET_ALL_POSTS'
@@ -14,6 +15,7 @@ export const GET_POST = 'GET_POST'
 export const UPVOTE_POST = 'UPVOTE_POST'
 export const DOWNVOTE_POST = 'DOWNVOTE_POST'
 export const DELETE_POST = 'DELETE_POST'
+export const NEW_POST = 'NEW_POST'
 
 const getAllPosts = posts => ({ type: GET_ALL_POSTS, posts })
 export function handleGetAllPosts(dispatch) {
@@ -75,4 +77,13 @@ export function handleDownVotePost (dispatch, id) {
         dispatch(downVote(post))
       })
   }
+}
+
+const newPost = (post) => ({ type: NEW_POST, post })
+export function handleNewPost (post) {
+  return (dispatch) =>
+    saveNewPost(dispatch, post)
+      .then((post) => {
+        return dispatch(newPost(post))
+      })
 }

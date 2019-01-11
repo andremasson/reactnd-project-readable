@@ -20,12 +20,13 @@ class NewComment extends Component {
     this.setState({ formOpen: false })
   }
   saveComment = () => {
-    this.props.dispatch(handleNewComment(
-      this.props.dispatch,
-      this.state.commentBody,
-      this.state.commentAuthor,
-      this.props.postId
-    ))
+    if (this.state.commentBody.length === 0 ||this.state.commentAuthor.length === 0)
+      return
+    this.props.handleNewComment({
+      body: this.state.commentBody,
+      author: this.state.commentAuthor,
+      parentId: this.props.postId
+    })
     this.setState({
       commentBody: '',
       commentAuthor: '',
@@ -46,13 +47,7 @@ class NewComment extends Component {
     
     return (
       <div>
-        {!this.state.formOpen && 
-          <Button color='primary' onClick={() => this.openForm()}>
-            Write a new comment
-            <CommentIcon />
-          </Button>
-        }
-        {this.state.formOpen &&
+        {this.state.formOpen && 
           <div>
             <form>
               <TextField
@@ -76,9 +71,19 @@ class NewComment extends Component {
             </Button>
           </div>
         }
+        {!this.state.formOpen &&
+          <Button color='primary' onClick={() => this.openForm()}>
+            Write a new comment
+            <CommentIcon />
+          </Button>
+        }
       </div>
     )
   }
 }
 
-export default connect()(NewComment)
+const mapDispatchToProps = dispatch => ({
+  handleNewComment: comment => dispatch(handleNewComment(comment))
+})
+
+export default connect(null, mapDispatchToProps)(NewComment)

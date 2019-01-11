@@ -37,8 +37,9 @@ class Posts extends Component {
 }
 
 const mapStateToProps = ({posts}, props) => {
+  const postsArray = Object.values(posts)
   return {
-    postsIds: Object.keys(posts),
+    postsIds: Object.keys(postsArray.sort((a,b) => b.voteScore - a.voteScore)),
     category: props.match.params.category
   }
 }

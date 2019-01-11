@@ -53,9 +53,9 @@ export function handleDeleteComment (dispatch, id) {
 }
 
 const newComment = (comment) => ({ type: NEW_COMMENT, comment })
-export function handleNewComment (dispatch, body, author, parentId) {
+export function handleNewComment (comment) {
   return (dispatch) => {
-    saveNewComment(dispatch, body, author, parentId)
+    saveNewComment(dispatch, comment)
       .then((comment) =>{
         dispatch(newComment(comment))
       })

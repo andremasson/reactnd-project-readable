@@ -5,7 +5,8 @@ import {
   GET_POST,
   UPVOTE_POST,
   DOWNVOTE_POST,
-  DELETE_POST
+  DELETE_POST,
+  NEW_POST
 } from '../actions/posts'
 
 export function posts (state = [], action) {
@@ -40,6 +41,11 @@ export function posts (state = [], action) {
       return {
         ...remainPosts
       }
+    case NEW_POST:
+      return {
+        ...state,
+        [action.post.id]: action.post
+      }
     default:
       return state
   }
@@ -56,6 +62,10 @@ export function currentPost (state = [], action) {
         ...action.post
       }
     case DOWNVOTE_POST:
+      return {
+        ...action.post
+      }
+    case NEW_POST:
       return {
         ...action.post
       }

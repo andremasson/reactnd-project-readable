@@ -43,6 +43,22 @@ export const deletePost = (dispatch, id) => {
   .then(post => post)
 }
 
+export const saveNewPost = (dispatch, post) => {
+  return fetch(`${api}/posts`,
+    {
+      method: 'POST',
+      headers: headers,
+      body: JSON.stringify({
+        ...post,
+        id: uuidv1(),
+        timestamp: Date.now()
+      })
+    }
+  )
+  .then(response => response.json())
+  .then(post => post)
+}
+
 export const saveUpVote = (dispatch, id) => {
   return fetch(`${api}/posts/${id}`,
   {
@@ -103,7 +119,7 @@ export const saveDownVoteComment = (dispatch, id) => {
     .then(comment => comment)
 }
 
-export const saveNewComment = (dispatch, comment, author, parentId) => {
+export const saveNewComment = (dispatch, comment) => {
   return fetch(`${api}/comments`,
     {
       method: 'POST',
@@ -111,10 +127,8 @@ export const saveNewComment = (dispatch, comment, author, parentId) => {
       body: JSON.stringify({
         id: uuidv1(),
         timestamp: Date.now(),
-        body: comment,
-        author: author,
-        parentId: parentId
-      })      
+        ...comment
+      })
     }
   )
   .then(response => response.json())

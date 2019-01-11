@@ -100,3 +100,7 @@ li {
   position: relative;
   z-index: 0;
 }
+
+.form-control {
+  min-width: 320px;
+}

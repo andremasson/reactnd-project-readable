@@ -5,10 +5,10 @@ import CssBaseline from '@material-ui/core/CssBaseline'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import Dashboard from './Dashboard'
 import PostPage from './PostPage'
+import NewPostPage from './NewPostPage'
 
 class App extends Component {
   componentDidMount() {
-    console.log('Dados iniciais?')
     this.props.dispatch(handleInitialData())
   }
   render() {
@@ -25,6 +25,10 @@ class App extends Component {
               <Route
                 path='/:category' exact
                 render={(props) => <Dashboard {...props} filterByCategory={true} />}
+              />
+              <Route
+                path='/post/new' exact
+                render={(props) => <NewPostPage />}
               />
               <Route
                 path='/post/:id' exact
