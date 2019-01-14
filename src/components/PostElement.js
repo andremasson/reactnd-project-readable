@@ -17,12 +17,12 @@ class PostElement extends Component {
   }
   onUpVote = (e) => {
     e.preventDefault()
-    this.props.dispatch(handleUpVotePost(this.props.dispatch, this.props.post.id))
+    this.props.handleUpVotePost(this.props.post.id)
   }
   onDownVote = (e) => 
   {
     e.preventDefault()
-    this.props.dispatch(handleDownVotePost(this.props.dispatch, this.props.post.id))
+    this.props.handleDownVotePost(this.props.post.id)
   }
   deletePost = (e) => {
     e.preventDefault()
@@ -33,7 +33,7 @@ class PostElement extends Component {
   }
   handleOkDialog = () => {
     this.setState({ dialogOpen: false })
-    this.props.dispatch(handleDeletePost(this.props.dispatch, this.props.post.id))
+    this.props.handleDeletePost(this.props.post.id)
   }
   render() {
     const { post, date } = this.props
@@ -84,9 +84,15 @@ class PostElement extends Component {
 
 const mapStateToProps = ({posts}, {id}) => {
   return {
-    post: (posts[id].hideInSearch === true || posts[id].deleted) ? null : posts[id],
-    date: formatDate(posts[id].timestamp)
+    post: (!posts[id] || posts[id].hideInSearch === true || posts[id].deleted) ? null : posts[id],
+    date: (posts[id]) ? formatDate(posts[id].timestamp) : ''
   }
 }
 
-export default withRouter(connect(mapStateToProps)(PostElement))
+const mapDispatchToProps = dispatch => ({
+  handleUpVotePost: comment => dispatch(handleUpVotePost(comment)),
+  handleDownVotePost: id => dispatch(handleDownVotePost(id)),
+  handleDeletePost: id => dispatch(handleDeletePost(id))
+})
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(PostElement))

@@ -9,31 +9,31 @@ const headers = {
   'Authorization': auth_key
 }
 
-export const fetchAllCategories = dispatch => {
+export const fetchAllCategories = () => {
   return fetch(`${api}/categories`, { headers })
     .then(response => response.json())
     .then(json => json.categories)
 }
 
-export const fetchAllPosts = dispatch => {
+export const fetchAllPosts = () => {
   return fetch(`${api}/posts`, { headers })
     .then(response => response.json())
     .then(posts => posts)
 }
 
-export const fetchPostsByCategory = (dispatch, category) => {
+export const fetchPostsByCategory = (category) => {
   return fetch(`${api}/${category}/posts`, { headers })
     .then(response => response.json())
     .then(posts => posts)
 }
 
-export const fetchPost = (dispatch, id) => {
+export const fetchPost = (id) => {
   return fetch(`${api}/posts/${id}`, { headers })
     .then(response => response.json())
     .then(post => post)
 }
 
-export const deletePost = (dispatch, id) => {
+export const deletePost = (id) => {
   return fetch(`${api}/posts/${id}`,
   {
     method: 'DELETE',
@@ -43,7 +43,7 @@ export const deletePost = (dispatch, id) => {
   .then(post => post)
 }
 
-export const saveNewPost = (dispatch, post) => {
+export const saveNewPost = (post) => {
   return fetch(`${api}/posts`,
     {
       method: 'POST',
@@ -59,7 +59,7 @@ export const saveNewPost = (dispatch, post) => {
   .then(post => post)
 }
 
-export const saveUpVote = (dispatch, id) => {
+export const saveUpVote = (id) => {
   return fetch(`${api}/posts/${id}`,
   {
     method: 'POST',
@@ -70,7 +70,7 @@ export const saveUpVote = (dispatch, id) => {
   .then(post => post)
 }
 
-export const saveDownVote = (dispatch, id) => {
+export const saveDownVote = (id) => {
   return fetch(`${api}/posts/${id}`,
   {
     method: 'POST',
@@ -81,13 +81,13 @@ export const saveDownVote = (dispatch, id) => {
   .then(post => post)
 }
 
-export const fetchComments = (dispatch, postId) => {
+export const fetchComments = (postId) => {
   return fetch(`${api}/posts/${postId}/comments`, { headers })
     .then(response => response.json())
     .then(comments => comments)
 }
 
-export const deleteComment = (dispatch, id) => {
+export const deleteComment = (id) => {
   return fetch(`${api}/comments/${id}`,
   {
     method: 'DELETE',
@@ -97,7 +97,7 @@ export const deleteComment = (dispatch, id) => {
   .then(comment => comment)
 }
 
-export const saveUpVoteComment = (dispatch, id) => {
+export const saveUpVoteComment = (id) => {
   return fetch(`${api}/comments/${id}`,
   {
     method: 'POST',
@@ -108,7 +108,7 @@ export const saveUpVoteComment = (dispatch, id) => {
   .then(comment => comment)
 }
 
-export const saveDownVoteComment = (dispatch, id) => {
+export const saveDownVoteComment = (id) => {
   return fetch(`${api}/comments/${id}`,
     {
       method: 'POST',
@@ -119,13 +119,28 @@ export const saveDownVoteComment = (dispatch, id) => {
     .then(comment => comment)
 }
 
-export const saveNewComment = (dispatch, comment) => {
+export const saveNewComment = (comment) => {
   return fetch(`${api}/comments`,
     {
       method: 'POST',
       headers: headers,
       body: JSON.stringify({
         id: uuidv1(),
+        timestamp: Date.now(),
+        ...comment
+      })
+    }
+  )
+  .then(response => response.json())
+  .then(comment => comment)
+}
+
+export const saveComment = (comment) => {
+  return fetch(`${api}/comments/${comment.id}`,
+    {
+      method: 'PUT',
+      headers: headers,
+      body: JSON.stringify({
         timestamp: Date.now(),
         ...comment
       })

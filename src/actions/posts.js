@@ -18,7 +18,7 @@ export const DELETE_POST = 'DELETE_POST'
 export const NEW_POST = 'NEW_POST'
 
 const getAllPosts = posts => ({ type: GET_ALL_POSTS, posts })
-export function handleGetAllPosts(dispatch) {
+export function handleGetAllPosts() {
   return (dispatch) => {
     fetchAllPosts()
       .then((posts) => {
@@ -30,9 +30,9 @@ export function handleGetAllPosts(dispatch) {
 export const searchPosts = (posts, query) => ({ type: SEARCH_POSTS, posts, query })
 
 const getPostsByCategory = (posts) => ({ type: GET_BY_CATEGORY, posts })
-export function handleGetPostsByCategory (dispatch, category) {
+export function handleGetPostsByCategory (category) {
   return (dispatch) => {
-    fetchPostsByCategory(dispatch, category)
+    fetchPostsByCategory(category)
       .then((posts) => {
         dispatch(getPostsByCategory(posts))
       })
@@ -40,9 +40,9 @@ export function handleGetPostsByCategory (dispatch, category) {
 }
 
 const getPost = (post) => ({ type: GET_POST, post })
-export function handleGetPost (dispatch, id) {
+export function handleGetPost (id) {
   return (dispatch) => {
-    fetchPost(dispatch, id)
+    fetchPost(id)
       .then((post) => {
         dispatch(getPost(post))
       })
@@ -50,9 +50,9 @@ export function handleGetPost (dispatch, id) {
 }
 
 const deletePostAction = (post) => ({ type: DELETE_POST, post })
-export function handleDeletePost (dispatch, id) {
+export function handleDeletePost (id) {
   return (dispatch) => {
-    deletePost(dispatch, id)
+    deletePost(id)
       .then((post) => {
         dispatch(deletePostAction(post))
       })
@@ -60,9 +60,9 @@ export function handleDeletePost (dispatch, id) {
 }
 
 const upVote = (post) => ({ type: UPVOTE_POST, post })
-export function handleUpVotePost (dispatch, id) {
+export function handleUpVotePost (id) {
   return (dispatch) => {
-    saveUpVote(dispatch, id)
+    saveUpVote(id)
       .then((post) => {
         dispatch(upVote(post))
       })
@@ -70,9 +70,9 @@ export function handleUpVotePost (dispatch, id) {
 }
 
 const downVote = (post) => ({ type: DOWNVOTE_POST, post })
-export function handleDownVotePost (dispatch, id) {
+export function handleDownVotePost (id) {
   return (dispatch) => {
-    saveDownVote(dispatch, id)
+    saveDownVote(id)
       .then((post) => {
         dispatch(downVote(post))
       })
@@ -82,7 +82,7 @@ export function handleDownVotePost (dispatch, id) {
 const newPost = (post) => ({ type: NEW_POST, post })
 export function handleNewPost (post) {
   return (dispatch) =>
-    saveNewPost(dispatch, post)
+    saveNewPost(post)
       .then((post) => {
         return dispatch(newPost(post))
       })

@@ -1,4 +1,11 @@
-import { GET_COMMENTS, UPVOTE_COMMENT, DOWNVOTE_COMMENT, DELETE_COMMENT, NEW_COMMENT } from '../actions/comments'
+import {
+  GET_COMMENTS,
+  UPVOTE_COMMENT,
+  DOWNVOTE_COMMENT,
+  DELETE_COMMENT,
+  NEW_COMMENT,
+  UPDATE_COMMENT
+} from '../actions/comments'
 
 export default function comments (state = [], action) {
   switch(action.type) {
@@ -24,6 +31,14 @@ export default function comments (state = [], action) {
       return {
         ...state,
         [action.comment.id]: action.comment
+      }
+    case UPDATE_COMMENT:
+      const comments = Object.values(state).map((comment) => {
+      if (comment.id === action.comment.id) comment.body = action.comment.body
+        return comment
+      })
+      return {
+        ...comments
       }
     default:
       return state

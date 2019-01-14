@@ -40,17 +40,17 @@ class PostPage extends Component {
     dialogOpen: false
   }
   componentDidMount() {
-    this.props.dispatch(handleGetPost(this.props.dispatch, this.props.id))
-    this.props.dispatch(handleGetComments(this.props.dispatch, this.props.id))
+    this.props.handleGetPost(this.props.id)
+    this.props.handleGetComments(this.props.id)
   }
   handleClickBack = () => {
     this.setState({ redirect: true })
   }
   onUpVote = () => {
-    this.props.dispatch(handleUpVotePost(this.props.dispatch, this.props.id))
+    this.props.handleUpVotePost(this.props.id)
   }
   onDownVote = () => {
-    this.props.dispatch(handleDownVotePost(this.props.dispatch, this.props.id))
+    this.props.handleDownVotePost(this.props.id)
   }
   deletePost = () => {
     this.setState({ dialogOpen: true })
@@ -61,7 +61,7 @@ class PostPage extends Component {
   handleOkDialog = () => {
     this.setState({ dialogOpen: false })
     this.setState({redirect: true})
-    this.props.dispatch(handleDeletePost(this.props.dispatch, this.props.id))
+    this.props.handleDeletePost(this.props.id)
   }
   render() {
     const { post } = this.props
@@ -140,4 +140,12 @@ const mapStateToProps = ({currentPost}, props) => {
   }
 }
 
-export default withStyles(styles)(withRouter(connect(mapStateToProps)(PostPage)))
+const mapDispatchToProps = dispatch => ({
+  handleGetPost: comment => dispatch(handleGetPost(comment)),
+  handleGetComments: id => dispatch(handleGetComments(id)),
+  handleUpVotePost: id => dispatch(handleUpVotePost(id)),
+  handleDownVotePost: id => dispatch(handleDownVotePost(id)),
+  handleDeletePost: id => dispatch(handleDeletePost(id))
+})
+
+export default withStyles(styles)(withRouter(connect(mapStateToProps, mapDispatchToProps)(PostPage)))
