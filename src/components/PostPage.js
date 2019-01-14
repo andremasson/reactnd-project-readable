@@ -15,7 +15,14 @@ import {
 } from '@material-ui/core'
 import ArrowBack from '@material-ui/icons/ArrowBack'
 import DeleteIcon from '@material-ui/icons/Delete'
-import { handleGetPost, handleDeletePost, handleUpVotePost, handleDownVotePost } from '../actions/posts'
+import EditIcon from '@material-ui/icons/Edit'
+import {
+  handleGetPost,
+  handleDeletePost,
+  handleUpVotePost,
+  handleDownVotePost,
+  handleUpdatePost
+} from '../actions/posts'
 import { handleGetComments } from '../actions/comments'
 import CommentList from './CommentList'
 import AuthorDisplay from './AuthorDisplay'
@@ -23,6 +30,7 @@ import VoteScore from './VoteScore'
 import { withStyles } from '@material-ui/core/styles'
 import ConfirmationDialog from './ConfirmationDialog'
 import NewComment from './NewComment'
+import PostForm from './PostForm'
 
 const styles = {
   appBar: {
@@ -37,7 +45,8 @@ class PostPage extends Component {
   state = {
     redirect: false,
     redirectURL: '/',
-    dialogOpen: false
+    dialogOpen: false,
+    isEditing: false
   }
   componentDidMount() {
     this.props.handleGetPost(this.props.id)
@@ -54,6 +63,19 @@ class PostPage extends Component {
   }
   deletePost = () => {
     this.setState({ dialogOpen: true })
+  }
+  editPost = () => {
+    this.setState({ isEditing: true })
+  }
+  savePost = (post) => {
+    this.props.handleUpdatePost({
+      ...post,
+      id: this.props.post.id,
+    })
+    this.setState({ isEditing: false })
+  }
+  cancelEditPost = () => {
+    this.setState({ isEditing: false })
   }
   handleCancelDialog = () => {
     this.setState({ dialogOpen: false })
@@ -89,43 +111,61 @@ class PostPage extends Component {
             <IconButton aria-label="Close" color='inherit' onClick={this.handleClickBack}>
               <ArrowBack />
             </IconButton>
+            <div className='align-right'>
+              {!this.state.isEditing &&
+                <Button color='inherit' onClick={() => this.editPost()}>
+                  <EditIcon /> Edit post
+                </Button>
+              }
+            </div>
           </Toolbar>
         </AppBar>
         <div className='container'>
-
-        <Grid container spacing={24} className='post-content' direction='column' justify='center'>
-          <Grid item xs={12} sm={10} md={8}>
-            <Typography variant="h4" gutterBottom className='post-title'>
-              {post.title}
-              <Chip label={post.category} variant="outlined" className='category-chip' />
-            </Typography>
-            <Divider />
-            <Typography variant="body1" gutterBottom className='post-body'>
-              {post.body}
-            </Typography>
-            <Divider />
-            <GridList>
-              <GridListTile>
-                <AuthorDisplay name={post.author} timestamp={post.timestamp} />
-              </GridListTile>
-              <GridListTile>
-                <VoteScore voteScore={post.voteScore} onUpVote={this.onUpVote} onDownVote={this.onDownVote} />
-              </GridListTile>
-            </GridList>
+          <Grid container spacing={24} className='post-content' direction='column' justify='center'>
+            <Grid item xs={12} sm={10} md={8}>
+              {this.state.isEditing &&
+                <PostForm
+                  action='edit'
+                  handleSavePost={this.savePost}
+                  handleCancel={this.cancelEditPost}
+                  post={post}
+                />
+              }
+              {!this.state.isEditing &&
+                <div>
+                  <Typography variant="h4" gutterBottom className='post-title'>
+                    {post.title}
+                    <Chip label={post.category} variant="outlined" className='category-chip' />
+                  </Typography>
+                  <Divider />
+                  <Typography variant="body1" gutterBottom className='post-body'>
+                    {post.body}
+                  </Typography>
+                  <Divider />
+                  <GridList>
+                    <GridListTile>
+                      <AuthorDisplay name={post.author} timestamp={post.timestamp} />
+                    </GridListTile>
+                    <GridListTile>
+                      <VoteScore voteScore={post.voteScore} onUpVote={this.onUpVote} onDownVote={this.onDownVote} />
+                    </GridListTile>
+                  </GridList>
+                </div>
+              }
+            </Grid>
+            <Grid item xs={12} sm={10} md={6}>
+              <NewComment postId={post.id} />
+            </Grid>
+            <Grid item xs={12} sm={10} md={8}>
+              <CommentList />
+            </Grid>
+            <Grid item xs={12} sm={10} md={8}>
+              <Button variant='contained' color='secondary' onClick={() => this.deletePost()}>
+                Delete this post
+                <DeleteIcon />
+              </Button>
+            </Grid>
           </Grid>
-          <Grid item xs={12} sm={10} md={6}>
-            <NewComment postId={post.id} />
-          </Grid>
-          <Grid item xs={12} sm={10} md={8}>
-            <CommentList />
-          </Grid>
-          <Grid item xs={12} sm={10} md={8}>
-            <Button variant='contained' color='secondary' onClick={() => this.deletePost()}>
-              Delete this post
-              <DeleteIcon />
-            </Button>
-          </Grid>
-        </Grid>
         </div>
       </div>
     )
@@ -145,7 +185,8 @@ const mapDispatchToProps = dispatch => ({
   handleGetComments: id => dispatch(handleGetComments(id)),
   handleUpVotePost: id => dispatch(handleUpVotePost(id)),
   handleDownVotePost: id => dispatch(handleDownVotePost(id)),
-  handleDeletePost: id => dispatch(handleDeletePost(id))
+  handleDeletePost: id => dispatch(handleDeletePost(id)),
+  handleUpdatePost: post => dispatch(handleUpdatePost(post))
 })
 
 export default withStyles(styles)(withRouter(connect(mapStateToProps, mapDispatchToProps)(PostPage)))

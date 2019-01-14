@@ -59,6 +59,20 @@ export const saveNewPost = (post) => {
   .then(post => post)
 }
 
+export const savePostEdit = (post) => {
+  return fetch(`${api}/posts/${post.id}`,
+    {
+      method: 'PUT',
+      headers: headers,
+      body: JSON.stringify({
+        ...post
+      })
+    }
+  )
+  .then(response => response.json())
+  .then(post => post)
+}
+
 export const saveUpVote = (id) => {
   return fetch(`${api}/posts/${id}`,
   {

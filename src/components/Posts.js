@@ -10,16 +10,16 @@ class Posts extends Component {
     previousCategory: ''
   }
   componentDidMount() {
-    this.props.dispatch(handleGetAllPosts())
+    this.props.handleGetAllPosts()
   }
   componentDidUpdate() {
     const { category, filterByCategory } = this.props
     if (category !== this.state.previousCategory) {
       this.setState({ previousCategory: category })
       if (filterByCategory === true) {
-        this.props.dispatch(handleGetPostsByCategory(this.props.dispatch, category))
+        this.props.handleGetPostsByCategory(category)
       } else if (filterByCategory === false) {
-        this.props.dispatch(handleGetAllPosts())
+        this.props.handleGetAllPosts()
       }
     }
   }
@@ -44,4 +44,9 @@ const mapStateToProps = ({posts}, props) => {
   }
 }
 
-export default withRouter(connect(mapStateToProps)(Posts))
+const mapDispatchToProps = dispatch => ({
+  handleGetAllPosts: () => dispatch(handleGetAllPosts()),
+  handleGetPostsByCategory: category => dispatch(handleGetPostsByCategory(category))
+})
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Posts))

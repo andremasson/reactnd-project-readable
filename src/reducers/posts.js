@@ -6,7 +6,8 @@ import {
   UPVOTE_POST,
   DOWNVOTE_POST,
   DELETE_POST,
-  NEW_POST
+  NEW_POST,
+  UPDATE_POST
 } from '../actions/posts'
 
 export function posts (state = [], action) {
@@ -46,6 +47,13 @@ export function posts (state = [], action) {
         ...state,
         [action.post.id]: action.post
       }
+    case UPDATE_POST:
+      const editedPosts = Object.values(state).map(post =>
+        (post.id === action.post.id) ? action.post : post
+      )
+      return {
+        ...editedPosts,
+      }
     default:
       return state
   }
@@ -53,6 +61,7 @@ export function posts (state = [], action) {
 
 export function currentPost (state = [], action) {
   switch(action.type) {
+    case UPDATE_POST:
     case GET_POST:
       return {
         ...action.post
