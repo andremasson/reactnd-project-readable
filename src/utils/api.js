@@ -1,4 +1,5 @@
 import uuidv1 from 'uuid/v1'
+import { _getSortingListings } from './_DATA'
 
 let auth_key = localStorage.auth_key || uuidv1()
 localStorage.auth_key = auth_key
@@ -164,6 +165,9 @@ export const saveComment = (comment) => {
   .then(comment => comment)
 }
 
+export const getSortingListings = () => {
+  return _getSortingListings()
+}
 /*
 let auth_key = localStorage.auth_key || Math.random().toString(36).substr(-8)
 let api = 'http://localhost:3001'

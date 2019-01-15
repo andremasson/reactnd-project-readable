@@ -7,7 +7,7 @@ import {
   DOWNVOTE_POST,
   DELETE_POST,
   NEW_POST,
-  UPDATE_POST
+  UPDATE_POST,
 } from '../actions/posts'
 
 export function posts (state = [], action) {

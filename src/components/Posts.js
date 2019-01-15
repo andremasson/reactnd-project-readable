@@ -24,11 +24,13 @@ class Posts extends Component {
     }
   }
   render() {
+    const { posts } = this.props
+    console.log('RENDER POSTS: ', posts)
     return (
       <Grid container justify='center'>
         <Grid item xs={10} sm={8}>
-          {this.props.postsIds.map((id) => (
-            <PostElement id={id} key={id}/>
+          {posts.map((post) => (
+            <PostElement post={post} key={post.id}/>
           ))}
         </Grid>
       </Grid>
@@ -36,10 +38,14 @@ class Posts extends Component {
   }
 }
 
-const mapStateToProps = ({posts}, props) => {
+const mapStateToProps = ({posts, sortingList, selectedSortingId}, props) => {
   const postsArray = Object.values(posts)
+  const sortingListArray = Object.values(sortingList)
+  const selectedSorting = sortingListArray.filter((item) => item.id === selectedSortingId)[0]
+  const orderedPosts = postsArray.sort((a,b) => b[selectedSorting.field] - a[selectedSorting.field])
+  
   return {
-    postsIds: Object.keys(postsArray.sort((a,b) => b.voteScore - a.voteScore)),
+    posts: orderedPosts,
     category: props.match.params.category
   }
 }

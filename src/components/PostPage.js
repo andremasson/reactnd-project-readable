@@ -71,6 +71,7 @@ class PostPage extends Component {
     this.props.handleUpdatePost({
       ...post,
       id: this.props.post.id,
+      author: this.props.post.author
     })
     this.setState({ isEditing: false })
   }

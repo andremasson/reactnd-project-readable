@@ -8,6 +8,7 @@ import classNames from 'classnames'
 import Search from './Search'
 import { connect } from 'react-redux'
 import { openDrawer, closeDrawer } from '../actions/drawer'
+import OrderSelector from './OrderSelector'
 
 const drawerWidth = 240
 
@@ -80,6 +81,7 @@ class TopBar extends Component {
             <Typography variant='h6' color='inherit' noWrap>
               Readable
             </Typography>
+            <OrderSelector />
             <Search />
           </Toolbar>
         </AppBar>

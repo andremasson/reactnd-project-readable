@@ -36,7 +36,7 @@ class PostElement extends Component {
     this.props.handleDeletePost(this.props.post.id)
   }
   render() {
-    const { post, date } = this.props
+    const { post } = this.props
     return (
       (post !== null &&
         <div>
@@ -53,7 +53,7 @@ class PostElement extends Component {
                   <h3>{post.title}</h3>
                 </Grid>
                 <Grid item xs={6}>
-                  <p>By <b>{post.author}</b> at {date}</p>
+                  <p>By <b>{post.author}</b> at {formatDate(post.timestamp)}</p>
                 </Grid>
                 <Grid item xs={6} className='align-right'>
                   <Chip label={post.category} className='align-right' />
@@ -82,17 +82,10 @@ class PostElement extends Component {
   }
 }
 
-const mapStateToProps = ({posts}, {id}) => {
-  return {
-    post: (!posts[id] || posts[id].hideInSearch === true || posts[id].deleted) ? null : posts[id],
-    date: (posts[id]) ? formatDate(posts[id].timestamp) : ''
-  }
-}
-
 const mapDispatchToProps = dispatch => ({
   handleUpVotePost: comment => dispatch(handleUpVotePost(comment)),
   handleDownVotePost: id => dispatch(handleDownVotePost(id)),
   handleDeletePost: id => dispatch(handleDeletePost(id))
 })
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(PostElement))
+export default withRouter(connect(null, mapDispatchToProps)(PostElement))

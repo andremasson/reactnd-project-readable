@@ -1,5 +1,6 @@
-import { fetchAllCategories } from '../utils/api'
+import { handleGetSortingListings } from './sortingListings'
 import { getAllCategories } from '../actions/categories'
+import { fetchAllCategories } from '../utils/api'
 
 
 export function handleInitialData (dispatch) {
@@ -9,5 +10,6 @@ export function handleInitialData (dispatch) {
       .then(( categories ) => {
           dispatch(getAllCategories(categories))
       })
+    dispatch(handleGetSortingListings())
   }
 }
