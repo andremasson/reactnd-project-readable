@@ -4,6 +4,7 @@ import PostElement from './PostElement'
 import Grid from '@material-ui/core/Grid'
 import { withRouter } from 'react-router-dom'
 import { handleGetPostsByCategory, handleGetAllPosts } from '../actions/posts'
+import { setFilter } from '../actions/filter'
 
 class Posts extends Component {
   state = {
@@ -20,6 +21,12 @@ class Posts extends Component {
         this.props.handleGetPostsByCategory(category)
       } else if (filterByCategory === false) {
         this.props.handleGetAllPosts()
+      }
+      console.log('CATEGORIA: ', category)
+      if (!category || category === undefined) {
+        this.props.setFilter('')
+      } else {
+        this.props.setFilter(category)
       }
     }
   }
@@ -51,7 +58,8 @@ const mapStateToProps = ({posts, sortingList, selectedSortingId}, props) => {
 
 const mapDispatchToProps = dispatch => ({
   handleGetAllPosts: () => dispatch(handleGetAllPosts()),
-  handleGetPostsByCategory: category => dispatch(handleGetPostsByCategory(category))
+  handleGetPostsByCategory: category => dispatch(handleGetPostsByCategory(category)),
+  setFilter: filter => dispatch(setFilter(filter))
 })
 
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Posts))

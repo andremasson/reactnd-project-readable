@@ -50,11 +50,16 @@ class PostPage extends Component {
     isEditing: false
   }
   componentDidMount() {
+    this.setState({ redirectURL: `/${this.props.previousSelectedFilter}` })
     this.props.handleGetPost(this.props.id)
     this.props.handleGetComments(this.props.id)
   }
   handleClickBack = () => {
-    this.setState({ redirect: true })
+    if (this.state.isEditing) {
+      this.setState({ isEditing: false })
+    } else {
+      this.setState({ redirect: true })
+    }
   }
   onUpVote = () => {
     this.props.handleUpVotePost(this.props.id)
@@ -176,11 +181,12 @@ class PostPage extends Component {
   }
 }
 
-const mapStateToProps = ({currentPost}, props) => {  
+const mapStateToProps = ({currentPost, filter}, props) => {  
   const { id } = props.match.params
   return {
     post: currentPost,
-    id
+    id,
+    previousSelectedFilter: filter
   }
 }
 

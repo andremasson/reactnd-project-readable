@@ -104,7 +104,6 @@ class CommentElement extends Component {
     if (!comment || comment.deleted) {
       return null
     }
-    console.log('BODY: ', comment.body)
     return (
       <div>
         <ConfirmationDialog 

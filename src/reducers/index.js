@@ -3,6 +3,7 @@ import categories from './categories'
 import { posts, currentPost } from './posts'
 import comments from './comments'
 import drawer from './drawer'
+import filter from './filter'
 import { sortingList, selectedSortingId } from './sortingListings'
 
 const rootReducer = combineReducers({
@@ -11,6 +12,7 @@ const rootReducer = combineReducers({
   currentPost,
   comments,
   drawer,
+  filter,
   sortingList,
   selectedSortingId
 })

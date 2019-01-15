@@ -6,10 +6,7 @@ import {
   GridListTile,
   Button,
   TextField,
-  Select,
   MenuItem,
-  InputLabel,
-  FormControl
 } from '@material-ui/core'
 import CancelIcon from '@material-ui/icons/Cancel'
 import ConfirmIcon from '@material-ui/icons/Send'

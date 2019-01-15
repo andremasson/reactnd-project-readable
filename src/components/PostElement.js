@@ -38,7 +38,7 @@ class PostElement extends Component {
   render() {
     const { post } = this.props
     return (
-      (post !== null &&
+      (post !== null && post.hideInSearch !== true &&
         <div>
           <ConfirmationDialog 
             openState={this.state.dialogOpen}
