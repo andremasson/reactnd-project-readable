@@ -19,13 +19,23 @@ li {
 
 .post-item {
   padding: 0 2em 0 2em;
-  margin-top: 2em;
+}
+
+.post-item-right {
+  padding: 1em 2em 0 2em;
+  text-align: right;
 }
 
 .align-right {
   margin-left: auto;
   margin-right: 20px;
   text-align: right;
+}
+
+.align-center {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
 }
 
 .category-chip {
@@ -40,6 +50,18 @@ li {
 .post-element {
   text-decoration: none;
   color: rgba(0, 0, 0, 0.7);
+  margin-top: 3em;
+}
+
+.post-form {
+  text-decoration: none;
+  color: rgba(0, 0, 0, 0.7);
+  margin-top: 5em;
+}
+
+.disabled-text {
+  font-style: italic;
+  color: darkslategray;
 }
 
 .category-chip {
@@ -81,7 +103,7 @@ li {
 }
 
 .post-content {
-  padding-top: 60px;
+  padding-top: 5em;
   position: absolute;
   margin-left: auto;
   margin-right: auto;

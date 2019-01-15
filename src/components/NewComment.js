@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import {
   TextField,
-  Button
+  Button,
+  Grid,
 } from '@material-ui/core'
 import CommentIcon from '@material-ui/icons/Comment'
 import { handleNewComment } from '../actions/comments'
@@ -49,26 +50,36 @@ class NewComment extends Component {
       <div>
         {this.state.formOpen && 
           <div>
-            <form>
-              <TextField
-                name='commentBody'
-                label='Comment'
-                value={commentBody}
-                onChange={this.handleInputChange}
-              />
-              <TextField
-                name='commentAuthor'
-                label='Your name'
-                value={commentAuthor}
-                onChange={this.handleInputChange}
-              />
-            </form>
-            <Button color='primary' onClick={() => this.saveComment()}>
-              Publish
-            </Button>
-            <Button color='secondary' onClick={() => this.cancel()}>
-              Cancel
-            </Button>
+            <Grid container direction='column'>
+              <Grid item>
+                <TextField
+                  name='commentBody'
+                  label='Comment'
+                  value={commentBody}
+                  fullWidth
+                  multiline
+                  rows={4}
+                  onChange={this.handleInputChange}
+                />
+              </Grid>
+              <Grid item>
+                <TextField
+                  name='commentAuthor'
+                  label='Your name'
+                  value={commentAuthor}
+                  onChange={this.handleInputChange}
+                />
+              </Grid>
+              <Grid item>
+                <Button color='primary' onClick={() => this.saveComment()}>
+                  Publish
+                </Button>
+                <Button color='secondary' onClick={() => this.cancel()}>
+                  Cancel
+                </Button>
+              </Grid>
+            </Grid>
+            
           </div>
         }
         {!this.state.formOpen &&

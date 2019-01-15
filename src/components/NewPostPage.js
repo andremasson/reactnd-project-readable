@@ -4,7 +4,8 @@ import { withRouter, Redirect } from 'react-router-dom'
 import {
   AppBar,
   Toolbar,
-  IconButton
+  IconButton,
+  Grid
 } from '@material-ui/core'
 import ArrowBack from '@material-ui/icons/ArrowBack'
 import { handleNewPost } from '../actions/posts'
@@ -75,14 +76,16 @@ class PostPage extends Component {
             </IconButton>
           </Toolbar>
         </AppBar>
-        <div className='container'>
-          <PostForm
-            action='add'
-            handleSavePost={this.savePost}
-            handleCancel={this.cancel}
-            formDidChange={this.formDidChange}
-          />
-        </div>
+        <Grid container spacing={24} className='post-content' justify='center'>
+          <Grid item xs={12} sm={10} md={8}>
+            <PostForm
+              action='add'
+              handleSavePost={this.savePost}
+              handleCancel={this.cancel}
+              formDidChange={this.formDidChange}
+            />
+          </Grid>
+        </Grid>
       </div>
     )
   }

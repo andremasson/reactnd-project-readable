@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import {
-  Divider,
   Grid,
   GridList,
   GridListTile,
@@ -57,37 +56,43 @@ class PostForm extends Component {
     const { body, title, category, author } = this.state
     const { categories, action } = this.props
     return (
-      <Grid container spacing={24} direction='column' justify='center'>
+      <Grid container spacing={24} direction='column' justify='center' className='post-form'>
         <Grid item xs={12} sm={10} md={8}>
           <TextField
             name='title'
             label='Title'
             value={title}
+            fullWidth
             onChange={this.handleInputChange}
           />
-          <FormControl className='form-control'>
-            <InputLabel htmlFor="category">Category</InputLabel>
-            <Select
-              id='category'
-              name='category'
-              value={category}
-              onChange={this.handleInputChange}
-            >
-              {categories && categories.map((cat) =>
-                <MenuItem key={cat.path} value={cat.path}>{cat.name}</MenuItem>
-              )}
-            </Select>
-          </FormControl>
-          <Divider />
-          
+        </Grid>
+        <Grid item xs={12} sm={10} md={8}>
+          <TextField
+            name='category'
+            id='category'
+            select
+            label='Category'
+            value={category}
+            onChange={this.handleInputChange}
+            fullWidth
+          >
+            {categories && categories.map((cat) =>
+              <MenuItem key={cat.path} value={cat.path}>{cat.name}</MenuItem>
+            )}
+          </TextField>
+        </Grid>
+        <Grid item>
           <TextField
             name='body'
             label='Body'
             value={body}
+            fullWidth
+            multiline
+            rows={10}
             onChange={this.handleInputChange}
           />
-          
-          <Divider />
+        </Grid>
+        <Grid item>
           {action === 'add' &&
             <TextField
               name='author'
@@ -96,13 +101,15 @@ class PostForm extends Component {
               onChange={this.handleInputChange}
             />
           }
+        </Grid>
+        <Grid item>
           <GridList>
-            <GridListTile>
+            <GridListTile className='align-center'>
               <Button color='primary' variant='contained' onClick={() => this.savePost()}>
                 <ConfirmIcon />Publish
               </Button>
             </GridListTile>
-            <GridListTile>
+            <GridListTile className='align-center'>
               <Button color='secondary' variant='contained' onClick={() => this.cancel()}>
                 <CancelIcon />Cancel
               </Button>

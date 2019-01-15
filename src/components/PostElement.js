@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { formatDate } from '../utils/helpers'
 import Paper from '@material-ui/core/Paper'
-import { Grid, Chip, Button, Badge } from '@material-ui/core'
+import { Grid, Chip, Button, Avatar } from '@material-ui/core'
 import 'typeface-roboto'
 import { Link, withRouter } from 'react-router-dom'
 import VoteScore from './VoteScore'
@@ -47,32 +47,45 @@ class PostElement extends Component {
             onOk={() => this.handleOkDialog()}
           />
           <Link to={`/post/${post.id}`} className='post-element'>
-            <Paper>
-              <Grid container className='post-item'>
-                <Grid item xs={12}>
-                  <h3>{post.title}</h3>
+            <Paper className='post-element'>
+              <Grid container spacing={32} className='post-item'>
+                <Grid item xs={8}>
+                  <Grid container direction='column'>
+                    <Grid item>
+                      <h3>{post.title}</h3>
+                    </Grid>
+                    <Grid item>
+                      <p>By <b>{post.author}</b> at {formatDate(post.timestamp)}</p>
+                    </Grid>
+                    <Grid item>
+                      <VoteScore voteScore={post.voteScore} onUpVote={this.onUpVote} onDownVote={this.onDownVote} />
+                    </Grid>
+                  </Grid>
                 </Grid>
-                <Grid item xs={6}>
-                  <p>By <b>{post.author}</b> at {formatDate(post.timestamp)}</p>
+                <Grid item xs={4}>
+                  <Grid container direction='column'>
+                    <Grid item className='post-item-right'>
+                      <Chip label={post.category}/>
+                    </Grid>
+                    <Grid item className='post-item-right'>
+                      {post.commentCount > 0 &&
+                        <Chip 
+                          avatar={
+                            <Avatar>
+                              <CommentIcon />
+                            </Avatar>
+                          }
+                          label={post.commentCount}
+                        />
+                      }
+                    </Grid>
+                    <Grid item className='post-item-right'>
+                      <Button variant='contained' color='secondary' onClick={(e) => this.deletePost(e)}>
+                        <DeleteIcon />
+                      </Button>
+                    </Grid>
+                  </Grid> 
                 </Grid>
-                <Grid item xs={6} className='align-right'>
-                  <Chip label={post.category} className='align-right' />
-                </Grid>
-                <Grid item>
-                  <VoteScore voteScore={post.voteScore} onUpVote={this.onUpVote} onDownVote={this.onDownVote} />
-                </Grid>
-                <Grid item>
-                  <Button variant='contained' color='secondary' onClick={(e) => this.deletePost(e)}>
-                    <DeleteIcon />
-                  </Button>
-                </Grid>
-                {post.commentCount > 0 &&
-                <Grid>
-                  <Badge badgeContent={post.commentCount} color="secondary">
-                    <CommentIcon />
-                  </Badge>
-                </Grid>
-                }
               </Grid>
             </Paper>
           </Link>

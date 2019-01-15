@@ -25,7 +25,6 @@ class Posts extends Component {
   }
   render() {
     const { posts } = this.props
-    console.log('RENDER POSTS: ', posts)
     return (
       <Grid container justify='center'>
         <Grid item xs={10} sm={8}>

@@ -11,7 +11,8 @@ import {
   GridList,
   GridListTile,
   Chip,
-  Button
+  Button,
+  InputBase
 } from '@material-ui/core'
 import ArrowBack from '@material-ui/icons/ArrowBack'
 import DeleteIcon from '@material-ui/icons/Delete'
@@ -121,53 +122,55 @@ class PostPage extends Component {
             </div>
           </Toolbar>
         </AppBar>
-        <div className='container'>
-          <Grid container spacing={24} className='post-content' direction='column' justify='center'>
-            <Grid item xs={12} sm={10} md={8}>
-              {this.state.isEditing &&
-                <PostForm
-                  action='edit'
-                  handleSavePost={this.savePost}
-                  handleCancel={this.cancelEditPost}
-                  post={post}
+        
+        <Grid container spacing={24} className='post-content' justify='center'>
+          <Grid item xs={12} sm={10} md={8}>
+            {this.state.isEditing &&
+              <PostForm
+                action='edit'
+                handleSavePost={this.savePost}
+                handleCancel={this.cancelEditPost}
+                post={post}
+              />
+            }
+            {!this.state.isEditing &&
+              <div>
+                <Typography variant="h4" gutterBottom className='post-title'>
+                  {post.title}
+                  <Chip label={post.category} variant="outlined" className='category-chip' />
+                </Typography>
+                <Divider />
+                <InputBase
+                  value={post.body}
+                  fullWidth
+                  multiline
+                  readOnly
                 />
-              }
-              {!this.state.isEditing &&
-                <div>
-                  <Typography variant="h4" gutterBottom className='post-title'>
-                    {post.title}
-                    <Chip label={post.category} variant="outlined" className='category-chip' />
-                  </Typography>
-                  <Divider />
-                  <Typography variant="body1" gutterBottom className='post-body'>
-                    {post.body}
-                  </Typography>
-                  <Divider />
-                  <GridList>
-                    <GridListTile>
-                      <AuthorDisplay name={post.author} timestamp={post.timestamp} />
-                    </GridListTile>
-                    <GridListTile>
-                      <VoteScore voteScore={post.voteScore} onUpVote={this.onUpVote} onDownVote={this.onDownVote} />
-                    </GridListTile>
-                  </GridList>
-                </div>
-              }
-            </Grid>
-            <Grid item xs={12} sm={10} md={6}>
-              <NewComment postId={post.id} />
-            </Grid>
-            <Grid item xs={12} sm={10} md={8}>
-              <CommentList />
-            </Grid>
-            <Grid item xs={12} sm={10} md={8}>
-              <Button variant='contained' color='secondary' onClick={() => this.deletePost()}>
-                Delete this post
-                <DeleteIcon />
-              </Button>
-            </Grid>
+                <Divider />
+                <GridList>
+                  <GridListTile>
+                    <AuthorDisplay name={post.author} timestamp={post.timestamp} />
+                  </GridListTile>
+                  <GridListTile>
+                    <VoteScore voteScore={post.voteScore} onUpVote={this.onUpVote} onDownVote={this.onDownVote}/>
+                  </GridListTile>
+                </GridList>
+              </div>
+            }
           </Grid>
-        </div>
+          <Grid item xs={12} sm={10} md={6} className='align-center'>
+            <NewComment postId={post.id} />
+          </Grid>
+          <Grid item xs={12} sm={10} md={8}>
+            <CommentList />
+          </Grid>
+          <Grid item xs={12} sm={10} md={8} className='align-center'>
+            <Button variant='contained' color='secondary' onClick={() => this.deletePost()} >
+              Delete this post
+              <DeleteIcon />
+            </Button>
+          </Grid>
+        </Grid>
       </div>
     )
   }

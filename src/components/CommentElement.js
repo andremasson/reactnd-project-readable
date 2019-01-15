@@ -2,10 +2,10 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import {
   Grid,
-  Typography,
   Paper,
   Button,
-  TextField
+  TextField,
+  InputBase
 } from '@material-ui/core'
 import { withRouter } from 'react-router-dom'
 import VoteScore from './VoteScore'
@@ -104,6 +104,7 @@ class CommentElement extends Component {
     if (!comment || comment.deleted) {
       return null
     }
+    console.log('BODY: ', comment.body)
     return (
       <div>
         <ConfirmationDialog 
@@ -113,38 +114,50 @@ class CommentElement extends Component {
           onOk={() => this.handleOkDialog()}
         />
         <Paper className='comment-display'>
-          <Grid container spacing={8} direction='column'>
-            <Grid item xs={4} sm={12}>
-              <AuthorDisplay name={comment.author} timestamp={comment.timestamp} />
+          <Grid container>
+            <Grid item xs={8}>
+              <Grid container direction='column'>
+                <Grid item xs={4} sm={12}>
+                  <AuthorDisplay name={comment.author} timestamp={comment.timestamp} />
+                </Grid>
+                <Grid item xs='auto'>
+                  {!this.state.isEditing &&
+                    <InputBase
+                      value={comment.body}
+                      fullWidth
+                      multiline
+                      readOnly
+                      className='disabled-text'
+                    />
+                  }
+                  {this.state.isEditing &&
+                    <CommentEdit
+                      comment={comment}
+                      handleUpdateComment={this.props.handleUpdateComment}
+                      cancelEdit={() => this.cancelEdit()}
+                    />
+                  }
+                </Grid>
+                <Grid item xs={4} sm={12}>              
+                  <VoteScore voteScore={comment.voteScore} onUpVote={this.onUpVote} onDownVote={this.onDownVote} />
+                </Grid>
+              </Grid>
             </Grid>
-            <Grid item xs='auto'>
-              {!this.state.isEditing &&
-                <Typography component='p'>
-                  {comment.body}
-                </Typography>
-              }
-              {this.state.isEditing &&
-                <CommentEdit
-                  comment={comment}
-                  handleUpdateComment={this.props.handleUpdateComment}
-                  cancelEdit={() => this.cancelEdit()}
-                />
-              }
-            </Grid>
-            <Grid item xs={4} sm={12}>              
-              <VoteScore voteScore={comment.voteScore} onUpVote={this.onUpVote} onDownVote={this.onDownVote} />
-            </Grid>
-            <Grid item xs={4} sm={12}>
-              {!this.state.isEditing &&
-                <div>
-                  <Button variant='contained' color='secondary' onClick={() => this.deleteComment()}>
-                    <DeleteIcon />
-                  </Button>
-                  <Button onClick={() => this.editComment()}>
-                    <EditIcon /> Edit comment
-                  </Button>
-                </div>
-              }
+            <Grid item xs={4}>
+              <Grid container direction='column'>
+                <Grid item xs={4} sm={12}>
+                  {!this.state.isEditing &&
+                    <div className='align-right'>
+                      <Button onClick={() => this.editComment()}>
+                        <EditIcon /> Edit comment
+                      </Button>
+                      <Button variant='contained' color='secondary' onClick={() => this.deleteComment()}>
+                        <DeleteIcon />
+                      </Button>
+                    </div>
+                  }
+                </Grid>
+              </Grid>
             </Grid>
           </Grid>
         </Paper>
