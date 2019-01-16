@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { formatDate } from '../utils/helpers'
 import Paper from '@material-ui/core/Paper'
 import { Grid, Chip, Button, Avatar } from '@material-ui/core'
 import 'typeface-roboto'
@@ -10,6 +9,7 @@ import { handleUpVotePost, handleDownVotePost, handleDeletePost } from '../actio
 import DeleteIcon from '@material-ui/icons/Delete'
 import CommentIcon from '@material-ui/icons/Comment'
 import ConfirmationDialog from './ConfirmationDialog'
+import AuthorDisplay from './AuthorDisplay'
 
 class PostElement extends Component {
   state = {
@@ -55,7 +55,7 @@ class PostElement extends Component {
                       <h3>{post.title}</h3>
                     </Grid>
                     <Grid item>
-                      <p>By <b>{post.author}</b> at {formatDate(post.timestamp)}</p>
+                      <AuthorDisplay name={post.author} timestamp={post.timestamp} />
                     </Grid>
                     <Grid item>
                       <VoteScore voteScore={post.voteScore} onUpVote={this.onUpVote} onDownVote={this.onDownVote} />

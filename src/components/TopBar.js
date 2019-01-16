@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import CategoriesList from '../components/Categories'
 import { withStyles } from '@material-ui/core/styles'
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft'
@@ -53,15 +53,14 @@ const topBarStyles = theme => ({
   },
 })
 
-class TopBar extends Component {
-  handleDrawerOpen = () => {
-    this.props.openDrawer()
+const TopBar = (props) => {
+  const handleDrawerOpen = () => {
+    props.openDrawer()
   }
-  handleDrawerClose = () => {
-    this.props.closeDrawer()
+  const handleDrawerClose = () => {
+    props.closeDrawer()
   }
-  render() {
-    const { classes, drawerOpen } = this.props
+    const { classes, drawerOpen } = props
     return (
       <div>
         <AppBar
@@ -73,7 +72,7 @@ class TopBar extends Component {
           <Toolbar disableGutters={!drawerOpen}>
             <IconButton
               color='inherit'
-              onClick={this.handleDrawerOpen}
+              onClick={handleDrawerOpen}
               className={classNames(classes.menuButton, drawerOpen && classes.hide)}
             >
               <MenuIcon />
@@ -93,7 +92,7 @@ class TopBar extends Component {
           classes={{paper: classes.drawerPaper}}
         >
           <div className={classes.drawerHeader}>
-            <IconButton onClick={this.handleDrawerClose}>
+            <IconButton onClick={handleDrawerClose}>
               <ChevronLeftIcon />
             </IconButton>
           </div>
@@ -104,7 +103,6 @@ class TopBar extends Component {
         <div className={classes.drawerHeader} />
       </div>
     )
-  }
 }
 
 function mapStateToProps ({drawer}) {

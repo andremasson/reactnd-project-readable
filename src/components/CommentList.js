@@ -1,29 +1,26 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { connect } from 'react-redux'
-import { withRouter } from 'react-router-dom'
 import CommentElement from './CommentElement'
 import { Typography } from '@material-ui/core'
 
-class CommentList extends Component {
-  render() {
-    const { comments } = this.props
-    if (comments.length === 0) return <Typography variant='h6'>No comments</Typography>
-    return (
-      <div className='comment-list'>
-        <Typography variant='h6'>
-          {comments.length} comments
-        </Typography>
-        <ul className='comments'>
-          {comments.map((comment) => (
-            <li key={comment.id}>
-              <CommentElement id={comment.id} />
-            </li>
-          ))}
-        </ul>
-      </div>
-    )
-  }
+const CommentList = ({ comments }) => {
+  if (comments.length === 0) return <Typography variant='h6'>No comments</Typography>
+  return (
+    <div className='comment-list'>
+      <Typography variant='h6'>
+        {comments.length} comments
+      </Typography>
+      <ul className='comments'>
+        {comments.map((comment) => (
+          <li key={comment.id}>
+            <CommentElement id={comment.id} />
+          </li>
+        ))}
+      </ul>
+    </div>
+  )
 }
+
 const mapStateToProps = ({comments}) => {
   const commentsArray = Object.values(comments)
   return {
@@ -34,4 +31,4 @@ const mapStateToProps = ({comments}) => {
   }
 }
 
-export default withRouter(connect(mapStateToProps)(CommentList))
+export default connect(mapStateToProps)(CommentList)

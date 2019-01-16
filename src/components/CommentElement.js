@@ -53,6 +53,7 @@ class CommentEdit extends Component {
             name='body'
             label='Comment body'
             value={this.state.body}
+            multiline
             onChange={this.handleInputChange}
           />
         </Grid>

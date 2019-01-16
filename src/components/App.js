@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux'
 import { handleInitialData } from '../actions/shared'
+import '../App.css'
 import CssBaseline from '@material-ui/core/CssBaseline'
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import Dashboard from './Dashboard'
@@ -9,7 +10,7 @@ import NewPostPage from './NewPostPage'
 
 class App extends Component {
   componentDidMount() {
-    this.props.dispatch(handleInitialData())
+    this.props.handleInitialData()
   }
   render() {
     return (
@@ -42,4 +43,8 @@ class App extends Component {
   }
 }
 
-export default connect()(App)
+const mapDispatchToProps = dispatch => ({
+  handleInitialData: () => dispatch(handleInitialData())
+})
+
+export default connect(null, mapDispatchToProps)(App)

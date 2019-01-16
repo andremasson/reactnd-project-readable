@@ -1,20 +1,16 @@
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
+import React from 'react'
 import Posts from '../components/Posts'
 import AddButton from '../components/AddButton'
-import { withRouter } from 'react-router-dom'
 import TopBar from './TopBar';
 
-class Dashboard extends Component {
-  render() {
-    return (
-      <div>
-        <TopBar />
-        <Posts {...this.props} />
-        <AddButton />
-      </div>
-    )
-  }
+const Dashboard = (props) => {
+  return (
+    <div>
+      <TopBar />
+      <Posts {...props} />
+      <AddButton props={props} />
+    </div>
+  )
 }
 
-export default withRouter(connect()(Dashboard))
+export default Dashboard

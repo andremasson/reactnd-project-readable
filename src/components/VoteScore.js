@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import {
   List,
@@ -9,30 +9,29 @@ import {
 import ThumbUp from '@material-ui/icons/ThumbUp'
 import ThumbDown from '@material-ui/icons/ThumbDown'
 
-class VoteScore extends Component {
-  static propTypes = {
-    voteScore: PropTypes.number.isRequired,
-    onUpVote: PropTypes.func.isRequired,
-    onDownVote: PropTypes.func.isRequired
-  }
-  render() {
-    const { voteScore } = this.props
+const VoteScore = (props) => {
+    const { voteScore } = props
     return (
       <List>
         <ListItem>
-          <IconButton onClick={(e) => this.props.onUpVote(e)}>
+          <IconButton onClick={(e) => props.onUpVote(e)}>
             <ThumbUp />
           </IconButton>
           <Typography variant="caption" gutterBottom>
             Vote score: {voteScore}
           </Typography>
-          <IconButton onClick={(e) => this.props.onDownVote(e)}>
+          <IconButton onClick={(e) => props.onDownVote(e)}>
             <ThumbDown />
           </IconButton>
         </ListItem>
       </List>
     )
-  }
+}
+
+VoteScore.propTypes = {
+  voteScore: PropTypes.number.isRequired,
+  onUpVote: PropTypes.func.isRequired,
+  onDownVote: PropTypes.func.isRequired
 }
 
 export default VoteScore
