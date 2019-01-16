@@ -32,7 +32,7 @@ class App extends Component {
                 render={(props) => <NewPostPage />}
               />
               <Route
-                path='/post/:id' exact
+                path='/:category/:id' exact
                 render={(props) => <PostPage />}
               />
             </Switch>

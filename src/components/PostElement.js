@@ -46,7 +46,7 @@ class PostElement extends Component {
             onCancel={() => this.handleCancelDialog()}
             onOk={() => this.handleOkDialog()}
           />
-          <Link to={`/post/${post.id}`} className='post-element'>
+          <Link to={`/${post.category}/${post.id}`} className='post-element'>
             <Paper className='post-element'>
               <Grid container spacing={32} className='post-item'>
                 <Grid item xs={8}>
