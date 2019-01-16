@@ -10,36 +10,25 @@ import {
 export default function comments (state = [], action) {
   switch(action.type) {
     case GET_COMMENTS:
-    return {
-        ...action.comments
-      }
+    return action.comments
     case DOWNVOTE_COMMENT:
     case UPVOTE_COMMENT:
-      const updatedComments = Object.values(state).map((comment) => {
+      return state.map((comment) => {
       if (comment.id === action.comment.id) comment.voteScore = action.comment.voteScore
         return comment
       })
-      return {
-        ...updatedComments
-      }
     case DELETE_COMMENT:
-      const remainComments = Object.values(state).filter((comment) => comment.id !== action.comment.id)
-      return {
-        ...remainComments
-      }
+      return state.filter((comment) => comment.id !== action.comment.id)
     case NEW_COMMENT:
-      return {
+      return [
         ...state,
-        [action.comment.id]: action.comment
-      }
+        action.comment
+      ]
     case UPDATE_COMMENT:
-      const comments = Object.values(state).map((comment) => {
+      return state.map((comment) => {
       if (comment.id === action.comment.id) comment.body = action.comment.body
         return comment
       })
-      return {
-        ...comments
-      }
     default:
       return state
   }

@@ -52,6 +52,7 @@ class PostForm extends Component {
   render() {
     const { body, title, category, author } = this.state
     const { categories, action } = this.props
+    console.log('CATEGORIAS: ', categories)
     return (
       <Grid container spacing={24} direction='column' justify='center' className='post-form'>
         <Grid item xs={12} sm={10} md={8}>
@@ -73,7 +74,7 @@ class PostForm extends Component {
             onChange={this.handleInputChange}
             fullWidth
           >
-            {categories && categories.map((cat) =>
+            {categories.map((cat) =>
               <MenuItem key={cat.path} value={cat.path}>{cat.name}</MenuItem>
             )}
           </TextField>
@@ -120,7 +121,7 @@ class PostForm extends Component {
 
 const mapStateToProps = ({categories}) => {
   return {
-    ...categories
+    categories
   }
 }
 

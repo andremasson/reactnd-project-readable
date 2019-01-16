@@ -7,9 +7,7 @@ import {
 export function sortingList (state = [], action) {
   switch(action.type) {
     case GET_SORTING_LISTINGS:
-      return {
-        ...action.sortingListings
-      }
+      return action.sortingListings
     default:
       return state
   }

@@ -1,15 +1,11 @@
 import { OPEN_DRAWER, CLOSE_DRAWER } from '../actions/drawer'
 
-export default function drawer (state = {}, action) {
+export default function drawer (state = false, action) {
   switch(action.type) {
     case OPEN_DRAWER:
-      return {
-        drawerOpen: true,
-      }
+      return true
     case CLOSE_DRAWER:
-      return {
-        drawerOpen: false,
-      }
+      return false
     default:
       return state
   }

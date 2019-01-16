@@ -93,7 +93,7 @@ export const saveDownVote = (id) => {
     body: JSON.stringify({ option: 'downVote' })
   })
   .then(response => response.json())
-  .then(post => post)
+  //.then(post => {console.log('API: ', post); return post})
 }
 
 export const fetchComments = (postId) => {

@@ -13,47 +13,39 @@ import {
 export function posts (state = [], action) {
   switch(action.type) {
     case GET_ALL_POSTS:
-      return {
-        ...action.posts
-      }
+      return action.posts
     case SEARCH_POSTS:
-      const { posts } = action
-      Object.values(posts).map((post) => (
-        post.hideInSearch = !post.title.toLowerCase().includes(action.query.toLowerCase())
-      ))
-      return {
-        ...posts,
-      }
+      const { posts, query } = action
+      return posts.map(post => {
+        return {
+          ...post,
+          hideInSearch: !post.title.toLowerCase().includes(query.toLowerCase())
+        }
+      })
     case GET_BY_CATEGORY:
-      return {
-        ...action.posts
-      }
+      return action.posts
     case DOWNVOTE_POST:
     case UPVOTE_POST:
-      const updatedPosts = Object.values(state).map((post) => {
-        if (post.id === action.post.id) post.voteScore = action.post.voteScore
+      return state.map((post) => {
+        if (post.id === action.post.id) {
+          return {
+            ...post,
+            voteScore: action.post.voteScore
+          }
+        }
         return post
       })
-      return {
-        ...updatedPosts,
-      }
     case DELETE_POST:
-      const remainPosts = Object.values(state).filter((post) => post.id !== action.post.id)
-      return {
-        ...remainPosts
-      }
+      return state.filter((post) => post.id !== action.post.id)
     case NEW_POST:
-      return {
+      return [
         ...state,
-        [action.post.id]: action.post
-      }
+        action.post
+      ]
     case UPDATE_POST:
-      const editedPosts = Object.values(state).map(post =>
+      return state.map(post =>
         (post.id === action.post.id) ? action.post : post
       )
-      return {
-        ...editedPosts,
-      }
     default:
       return state
   }
@@ -63,21 +55,13 @@ export function currentPost (state = [], action) {
   switch(action.type) {
     case UPDATE_POST:
     case GET_POST:
-      return {
-        ...action.post
-      }
+      return action.post
     case UPVOTE_POST:
-      return {
-        ...action.post
-      }
+      return action.post
     case DOWNVOTE_POST:
-      return {
-        ...action.post
-      }
+      return action.post
     case NEW_POST:
-      return {
-        ...action.post
-      }
+      return action.post
     default:
       return state
   }

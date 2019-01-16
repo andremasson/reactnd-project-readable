@@ -22,12 +22,9 @@ const CommentList = ({ comments }) => {
 }
 
 const mapStateToProps = ({comments}) => {
-  const commentsArray = Object.values(comments)
   return {
-    comments: !commentsArray
-              ?[]
-              : commentsArray.filter((comment) => (comment.deleted === false))
-                .sort((a, b) => b.voteScore - a.voteScore || b.timestamp - a.timestamp)
+    comments: comments.filter((comment) => (comment.deleted === false))
+              .sort((a, b) => b.voteScore - a.voteScore || b.timestamp - a.timestamp)
   }
 }
 

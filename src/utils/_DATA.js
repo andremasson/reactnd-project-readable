@@ -18,6 +18,6 @@ let sortingListings = [
 
 export function _getSortingListings () {
   return new Promise((res, rej) => {
-    return res({...sortingListings})
+    return res(sortingListings)
   })
 }

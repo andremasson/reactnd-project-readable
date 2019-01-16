@@ -106,9 +106,8 @@ const TopBar = (props) => {
 }
 
 function mapStateToProps ({drawer}) {
-  const { drawerOpen } = drawer
   return {
-    drawerOpen
+    drawerOpen: drawer
   }
 }
 

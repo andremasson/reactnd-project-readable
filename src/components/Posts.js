@@ -17,12 +17,11 @@ class Posts extends Component {
     const { category, filterByCategory } = this.props
     if (category !== this.state.previousCategory) {
       this.setState({ previousCategory: category })
-      if (filterByCategory === true) {
-        this.props.handleGetPostsByCategory(category)
-      } else if (filterByCategory === false) {
+      if (filterByCategory === undefined || filterByCategory === false) {
         this.props.handleGetAllPosts()
+      } else {
+        this.props.handleGetPostsByCategory(category)
       }
-      console.log('CATEGORIA: ', category)
       if (!category || category === undefined) {
         this.props.setFilter('')
       } else {
@@ -35,7 +34,7 @@ class Posts extends Component {
     return (
       <Grid container justify='center'>
         <Grid item xs={10} sm={8}>
-          {posts.map((post) => (
+          {posts && posts.map((post) => (
             <PostElement post={post} key={post.id}/>
           ))}
         </Grid>
@@ -45,13 +44,9 @@ class Posts extends Component {
 }
 
 const mapStateToProps = ({posts, sortingList, selectedSortingId}, props) => {
-  const postsArray = Object.values(posts)
-  const sortingListArray = Object.values(sortingList)
-  const selectedSorting = sortingListArray.filter((item) => item.id === selectedSortingId)[0]
-  const orderedPosts = postsArray.sort((a,b) => b[selectedSorting.field] - a[selectedSorting.field])
-  
+  const selectedSorting = sortingList.filter((item) => item.id === selectedSortingId)[0]
   return {
-    posts: orderedPosts,
+    posts: [...posts].sort((a,b) => b[selectedSorting.field] - a[selectedSorting.field]),
     category: props.match.params.category
   }
 }
