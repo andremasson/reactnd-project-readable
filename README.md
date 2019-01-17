@@ -1,44 +1,29 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Projeto Leitura
 
-## Available Scripts
+Este é o segundo projeto do Nanodegree Desenvolvedor React da Udacity. Nesta aplicação você poderá postar conteúdo em categorias pré-definidas, postar comentários e votar nas postagens e comentários. O usuário poderá editar e excluir os posts e comentários. O objetivo dele é aplicar os conhecimentos em React e gerenciamento de estados com Redux adquiridos até este momento do curso.
 
-In the project directory, you can run:
+## Pré-requisitos
 
-### `npm start`
+É necessário ter o gerenciador de pacotes `npm` que é instalado juntamente com o [NodeJS](https://nodejs.org/en/).
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Para execução desde projeto é necessário instalar e executar o servidor de desenvolvimento. Disponível [aqui](https://github.com/udacity/reactnd-project-readable-starter).
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+## Instalação
 
-### `npm test`
+Após baixar este projeto, execute:
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```
+npm install
+```
 
-### `npm run build`
+Em seguida inicie o servidor:
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```
+npm run start
+```
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+Após isso ele poderá ser acessado pela url http://localhost:3000
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Licença
 
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+O conteúdo deste repositório é licenciado com uma Licença [Creative Commons Atribuição 3.0 Estados Unidos](https://creativecommons.org/licenses/by/3.0/us/).
