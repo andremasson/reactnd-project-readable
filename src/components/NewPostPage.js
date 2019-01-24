@@ -12,6 +12,7 @@ import { handleNewPost } from '../actions/posts'
 import { withStyles } from '@material-ui/core/styles'
 import ConfirmationDialog from './ConfirmationDialog'
 import PostForm from './PostForm'
+import styled from 'styled-components'
 
 const styles = {
   appBar: {
@@ -21,6 +22,17 @@ const styles = {
     flex: 1,
   },
 }
+
+const PostAppBar = styled(AppBar)`
+  position: fixed;
+`
+
+const PostContent = styled(Grid)`
+  padding-top: 5em;
+  position: absolute;
+  margin-left: auto;
+  margin-right: auto;
+`
 
 class PostPage extends Component {
   state = {
@@ -69,14 +81,14 @@ class PostPage extends Component {
           onCancel={() => this.handleCancelDialog()}
           onOk={() => this.handleOkDialog()}
         />
-        <AppBar className='app-bar'>
+        <PostAppBar className='app-bar'>
           <Toolbar>
             <IconButton aria-label="Close" color='inherit' onClick={this.cancel}>
               <ArrowBack />
             </IconButton>
           </Toolbar>
-        </AppBar>
-        <Grid container spacing={24} className='post-content' justify='center'>
+        </PostAppBar>
+        <PostContent container spacing={24} justify='center'>
           <Grid item xs={12} sm={10} md={8}>
             <PostForm
               action='add'
@@ -85,7 +97,7 @@ class PostPage extends Component {
               formDidChange={this.formDidChange}
             />
           </Grid>
-        </Grid>
+        </PostContent>
       </div>
     )
   }

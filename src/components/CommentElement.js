@@ -21,6 +21,8 @@ import EditIcon from '@material-ui/icons/Edit'
 import ConfirmationDialog from './ConfirmationDialog'
 import CancelIcon from '@material-ui/icons/Cancel'
 import ConfirmIcon from '@material-ui/icons/Send'
+import styled from 'styled-components'
+import { AlignRight } from '../containers/Elements'
 
 class CommentEdit extends Component {
   state = {
@@ -70,6 +72,11 @@ class CommentEdit extends Component {
   }
 }
 
+const CommentDisplay = styled(Paper)`
+  padding: 1em 1em 1em 1em;
+  margin: 1em 0 0 0;
+`
+
 class CommentElement extends Component {
   state = {
     dialogOpen: false,
@@ -113,7 +120,7 @@ class CommentElement extends Component {
           onCancel={() => this.handleCancelDialog()}
           onOk={() => this.handleOkDialog()}
         />
-        <Paper className='comment-display'>
+        <CommentDisplay>
           <Grid container>
             <Grid item xs={8}>
               <Grid container direction='column'>
@@ -127,7 +134,6 @@ class CommentElement extends Component {
                       fullWidth
                       multiline
                       readOnly
-                      className='disabled-text'
                     />
                   }
                   {this.state.isEditing &&
@@ -147,20 +153,20 @@ class CommentElement extends Component {
               <Grid container direction='column'>
                 <Grid item xs={4} sm={12}>
                   {!this.state.isEditing &&
-                    <div className='align-right'>
+                    <AlignRight>
                       <Button onClick={() => this.editComment()}>
                         <EditIcon /> Edit comment
                       </Button>
                       <Button variant='contained' color='secondary' onClick={() => this.deleteComment()}>
                         <DeleteIcon />
                       </Button>
-                    </div>
+                    </AlignRight>
                   }
                 </Grid>
               </Grid>
             </Grid>
           </Grid>
-        </Paper>
+        </CommentDisplay>
       </div>
     )
   }
